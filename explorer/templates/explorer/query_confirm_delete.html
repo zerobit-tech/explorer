@@ -1,0 +1,32 @@
+{% extends "explorer/base.html" %}
+{% load i18n %}
+
+{% block sql_explorer_content %}
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">  {% trans "Confirm" %}</div>
+                    <div class="card-body">
+               
+    <form method="post">{% csrf_token %}
+        <div class="alert alert-info">
+            {% blocktrans trimmed with title=object.title %}
+                Are you sure you want to delete "{{ title }}"?
+            {% endblocktrans %}
+        </div>
+        <div class="alert">
+            {{object.sql}}
+        </div>
+        
+        <div>
+            <input type="submit" value="Delete Query" class="btn btn-danger" />
+        </div>
+    </form>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+{%  endblock %}

@@ -1,0 +1,18 @@
+{% extends "explorer/base.html" %}
+{% load i18n %}
+
+{% block sidebar %}
+ 
+{% endblock sidebar %}
+
+{% block base_header %}
+ 
+{% endblock base_header %}
+{% block footer %}
+{% endblock footer %}
+{% block sql_explorer_content_takeover %}
+    <div class="schema-wrapper">
+        <h4 class="text-center">{% trans "Schema is building..." %}</h4>
+        <div>{% trans "Please wait a minute, and refresh." %}</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="./">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="description" content="{{ app_name }}">
+        <meta name="author" content="{{app_name}}">
+        <meta name="keyword" content="{{ app_name }}">
+        <title>{% block head_title %}{{ app_name }}{% endblock %}</title>
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="{% static 'coreui/css/style.css' %}" rel="stylesheet">
+        <link href="{% static 'coreui/vendors/coreui/chartjs/css/coreui-chartjs.css' %}" rel="stylesheet">
+    
+        {% block more-css %}
+        {% endblock more-css %}
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "SQL Explorer" %}{% if query %} - {{ query.title }}{% elif title %} - {{ title }}{% endif %}</title>
+
+    <link rel="stylesheet" href="{% static 'explorer/css/codemirror.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'explorer/css/pivot.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'explorer/css/explorer.css' %}" />
+
+    <script src="{% static 'explorer/js/jquery.min.js' %}"></script>
+    <script src="{% static 'explorer/js/jquery.cookie.min.js' %}"></script>
+
+    <script src="{% static 'explorer/js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript">
+        queryId = "{% firstof query.id 'new' %}";
+        csrfCookieName = "{% firstof csrf_cookie_name 'csrftoken' %}"
+    </script>
+    <script src="{% static 'explorer/js/explorer.js' %}"></script>
+
+
+</head>
+
+<body   class="c-app c-no-layout-transition {% if request.session.uitheme == 'DARK' %} c-dark-theme {% endif %} ">
+
+
+    <!-- sidebar -->
+    {% block sidebar %}
+    {% include 'explorer/sidebar.html' %}
+    {% endblock sidebar %}
+    <!-- sidebar end-->
+
+
+    <div class="c-wrapper">
+        <!-- topbar -->
+        {% block base_header %}
+        {% include 'header.html' %}
+        {% endblock base_header %}
+        <!-- topbar end-->
+        {% include 'messages.html' %}
+    
+        <div   class="h-100" style="overflow-x:auto">
+          <div>
+            
+            {% comment %} {% for key, value in request.session.items %}
+              {{key}} :: {{value}}<br/>
+             {% endfor %}
+            <hr />
+            {% for key in request.COOKIES %}
+            {{key}} ::<br/>
+           {% endfor %}        {% endcomment %}
+    
+    
+          </div>
+          {% block sql_explorer_content_takeover %}
+          <div id="wrap" class="wrap">
+           
+               
+                  <div class="starter-template">
+                      {% block sql_explorer_content %}{% endblock %}
+                  </div>
+               
+          </div>
+        {% endblock %}
+        
+        </div>
+    
+        {% block footer %}
+        <footer class="c-footer">
+            <div><a href="">{{app_name}}</a> © 2020.</div>
+            <div class="mfs-auto">{% trans "Powered by" %}&nbsp;<a href="http://{{powered_by}}">{{powered_by}}</a></div>
+        </footer>
+        {% endblock footer %}
+
+    </div>
+   
+
+   
+    <script src="{% static 'explorer/js/underscore-min.js' %}"></script>
+    <script src="{% static 'explorer/js/list.min.js' %}"></script>
+    <script src="{% static 'explorer/js/codemirror.min.js' %}"></script>
+    <script src="{% static 'explorer/js/sql.min.js' %}"></script>
+    <script src="{% static 'explorer/js/comment.min.js' %}"></script>
+    <script src="{% static 'explorer/js/jquery.floatThead.min.js' %}"></script>
+    <script src="{% static 'explorer/js/pivot.min.js' %}"></script>
+    {% block sql_explorer_scripts %}{% endblock %}
+</body>
+
+</html>
