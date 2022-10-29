@@ -15,7 +15,7 @@ requirements = [
     'the_system @ git+https://github.com/zerobit-tech/the_system@main#egg=the_system',
     'sqlparse>=0.4.0',
     'coverage',
-    'celery==5.3.0b1',
+    'celery>=5.1.2',
     'boto>=2.49',
  
     'xlsxwriter>=1.3.6',
